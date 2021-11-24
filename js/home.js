@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let liList = mainContainer.querySelectorAll(".carousel li");
     let carouselDotsArray = mainContainer.querySelectorAll(".carousel-buttons span");
 
+    document.addEventListener("keydown", function(event) {
+        if(event.key === "ArrowLeft") {
+            changeDisplayedItem(true, -1);
+        }
+        else if(event.key === "ArrowRight") {
+            changeDisplayedItem(true, 1);
+        }
+    })
+
     previousButton.addEventListener("click", function() {
         changeDisplayedItem(true, -1);
     });
