@@ -99,10 +99,12 @@ figure > img {
     display: inline-block;
     background: rgba(0, 0, 0, 0.25);
     font-size: 0;
-    transition: color 1s ease-in-out;
+    transition: background 1s ease-in-out;
 }
 
 .carousel-buttons > li > span:hover { 
     background: rgba(0, 0, 0, 1);
     cursor: pointer;
 }
+
+.carousel-buttons > li > span.selected { background: rgba(0, 0, 0, 1); }
