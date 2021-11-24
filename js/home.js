@@ -22,40 +22,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function changeDisplayedItem(onNextPrevClick, number) {
-        console.log(liList);
+        liList[currentItem].classList.remove("selected");
+        carouselDotsArray[currentItem].classList.remove("selected");
         if(onNextPrevClick) {
             if(currentItem == 0 && number == -1) {
-                liList[currentItem].classList.remove("selected");
-                carouselDotsArray[currentItem].classList.remove("selected");
                 currentItem = totalItems - 1;
-                liList[currentItem].classList.add("selected");
-                carouselDotsArray[currentItem].classList.add("selected");
-                liList[currentItem].scrollIntoView({behavior: "smooth"});
-                return;
             }
-            if(currentItem == (totalItems-1) && number == 1) {
-                liList[currentItem].classList.remove("selected");
-                carouselDotsArray[currentItem].classList.remove("selected");
+            else if(currentItem == (totalItems-1) && number == 1) {
                 currentItem = 0;
-                liList[currentItem].classList.add("selected");
-                carouselDotsArray[currentItem].classList.add("selected");
-                liList[currentItem].scrollIntoView({behavior: "smooth"});
-                return;
             }
-            liList[currentItem].classList.remove("selected");
-            carouselDotsArray[currentItem].classList.remove("selected");
-            currentItem = currentItem + number;
-            liList[currentItem].classList.add("selected");
-            carouselDotsArray[currentItem].classList.add("selected");
-            liList[currentItem].scrollIntoView({behavior: "smooth"});
+            else {
+                currentItem = currentItem + number;
+            }
         }
         else {
-            liList[currentItem].classList.remove("selected");
-            carouselDotsArray[currentItem].classList.remove("selected");
             currentItem = number;
-            liList[number].classList.add("selected");
-            carouselDotsArray[currentItem].classList.add("selected");
-            liList[currentItem].scrollIntoView({behavior: "smooth"});
         }
+        liList[currentItem].classList.add("selected");
+        carouselDotsArray[currentItem].classList.add("selected");
+        liList[currentItem].scrollIntoView({behavior: "smooth"});
     }
 });
