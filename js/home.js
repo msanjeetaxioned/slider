@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let currentItem = 0;
     let previousButton = mainContainer.querySelector(".previous-button");
     let nextButton = mainContainer.querySelector(".next-button");
+    let ul = mainContainer.querySelector(".carousel > ul");
     let liList = mainContainer.querySelectorAll(".carousel li");
     let carouselDotsArray = mainContainer.querySelectorAll(".carousel-buttons span");
 
@@ -49,6 +50,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
         liList[currentItem].classList.add("selected");
         carouselDotsArray[currentItem].classList.add("selected");
-        liList[currentItem].scrollIntoView({behavior: "smooth"});
+        horizontalScrollToElement(ul, liList[currentItem].offsetLeft, 400);
+    }
+
+    function horizontalScrollToElement(scrollLayer, destination, duration) {
+        if (duration <= 0) {
+            return;
+        }
+        const difference = destination - scrollLayer.scrollLeft - 50;
+        const perTick = (difference / duration) * 10;
+    
+        setTimeout(() => {
+            scrollLayer.scrollLeft = scrollLayer.scrollLeft + perTick;
+            if (scrollLayer.scrollLeft === destination) {
+                return;
+            }
+            scrollToElement(scrollLayer, destination, duration - 10);
+        }, 10);
     }
 });
