@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (scrollLayer.scrollLeft === destination) {
                 return;
             }
-            scrollToElement(scrollLayer, destination, duration - 10);
+            horizontalScrollToElement(scrollLayer, destination, duration - 10);
         }, 10);
     }
 });
