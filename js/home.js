@@ -60,9 +60,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const difference = destination - scrollLayer.scrollLeft - 50;
         const perTick = (difference / duration) * 10;
     
-        setTimeout(() => {
+        let timeout = setTimeout(function() {
             scrollLayer.scrollLeft = scrollLayer.scrollLeft + perTick;
             if (scrollLayer.scrollLeft === destination) {
+                clearTimeout(timeout);
                 return;
             }
             horizontalScrollToElement(scrollLayer, destination, duration - 10);
