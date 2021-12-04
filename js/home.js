@@ -80,6 +80,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             scrollLayer.scrollLeft = scrollLayer.scrollLeft + perTick;
             if (scrollLayer.scrollLeft === destination) {
                 clearTimeout(timeout);
+                if(callback) {
+                    ul.scrollLeft = liList[currentItem].offsetLeft - 50;
+                }
                 return;
             }
             horizontalScrollToElement(scrollLayer, destination, duration - 10, callback);
