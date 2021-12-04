@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     ul.prepend(cloneOfLast);
 
     liList = mainContainer.querySelectorAll(".carousel li");
-    liList[currentItem].scrollIntoView(); // Scroll to Actual First Element(ie. 2nd Element in Array after cloning)
+    ul.scrollLeft = liList[currentItem].offsetLeft - 50; // Scroll to Actual First Element(ie. 2nd Element in Array after cloning)
 
     document.addEventListener("keydown", function(event) {
         if(event.key === "ArrowLeft") {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function horizontalScrollToElement(scrollLayer, destination, duration, callback) {
         if (duration <= 0) {
             if(callback) {
-                liList[currentItem].scrollIntoView()
+                ul.scrollLeft = liList[currentItem].offsetLeft - 50;
             }
             return;
         }
