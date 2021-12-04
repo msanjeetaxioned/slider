@@ -1,12 +1,22 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     const totalItems = 5;
     let mainContainer = document.querySelector("#main-container");
-    let currentItem = 0;
+    let currentItem = 1;
     let previousButton = mainContainer.querySelector(".previous-button");
     let nextButton = mainContainer.querySelector(".next-button");
+
     let ul = mainContainer.querySelector(".carousel > ul");
     let liList = mainContainer.querySelectorAll(".carousel li");
     let carouselDotsArray = mainContainer.querySelectorAll(".carousel-buttons span");
+
+    let cloneOfFirst = liList[0].cloneNode(true);
+    let cloneOfLast = liList[liList.length-1].cloneNode(true);
+
+    ul.append(cloneOfFirst);
+    ul.prepend(cloneOfLast);
+
+    liList = mainContainer.querySelectorAll(".carousel li");
+    liList[currentItem].scrollIntoView(); // Scroll to Actual First Element(ie. 2nd Element in Array after cloning)
 
     document.addEventListener("keydown", function(event) {
         if(event.key === "ArrowLeft") {
@@ -33,28 +43,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function changeDisplayedItem(onNextPrevClick, number) {
         liList[currentItem].classList.remove("selected");
-        carouselDotsArray[currentItem].classList.remove("selected");
+        carouselDotsArray[currentItem-1].classList.remove("selected");
         if(onNextPrevClick) {
-            if(currentItem == 0 && number == -1) {
-                currentItem = totalItems - 1;
+            if(currentItem == 1 && number == -1) {
+                currentItem = totalItems;
+                horizontalScrollToElement(ul, liList[0].offsetLeft, 400, true);
             }
-            else if(currentItem == (totalItems-1) && number == 1) {
-                currentItem = 0;
+            else if((currentItem == totalItems) && (number == 1)) {
+                currentItem = 1;
+                horizontalScrollToElement(ul, liList[liList.length-1].offsetLeft, 400, true);
             }
             else {
                 currentItem = currentItem + number;
+                horizontalScrollToElement(ul, liList[currentItem].offsetLeft, 400);
             }
         }
         else {
             currentItem = number;
+            horizontalScrollToElement(ul, liList[currentItem].offsetLeft, 400);
         }
         liList[currentItem].classList.add("selected");
-        carouselDotsArray[currentItem].classList.add("selected");
-        horizontalScrollToElement(ul, liList[currentItem].offsetLeft, 400);
+        carouselDotsArray[currentItem-1].classList.add("selected");
     }
 
-    function horizontalScrollToElement(scrollLayer, destination, duration) {
+    function horizontalScrollToElement(scrollLayer, destination, duration, callback) {
         if (duration <= 0) {
+            if(callback) {
+                liList[currentItem].scrollIntoView()
+            }
             return;
         }
         const difference = destination - scrollLayer.scrollLeft - 50;
@@ -66,7 +82,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearTimeout(timeout);
                 return;
             }
-            horizontalScrollToElement(scrollLayer, destination, duration - 10);
+            horizontalScrollToElement(scrollLayer, destination, duration - 10, callback);
         }, 10);
     }
 });
