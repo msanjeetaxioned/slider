@@ -63,6 +63,7 @@ figure > img {
 
 .carousel > ul {
     height: 100%;
+    position: relative;
     flex: auto;
     overflow: hidden;
     white-space: nowrap;
