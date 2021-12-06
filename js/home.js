@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     ul.prepend(cloneOfLast);
 
     liList = mainContainer.querySelectorAll(".carousel li");
+
     // Scroll to Actual First Element(ie. 2nd Element in Array after cloning)
-    ul.scrollLeft = liList[currentItem].offsetLeft - 50;
+    ul.scrollLeft = liList[currentItem].offsetLeft-8;
 
     // Remove default drag of img behaviour
     for(let img of imgList) {
@@ -96,11 +97,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function horizontalScrollToElement(scrollLayer, destination, duration, callback) {
         if (duration <= 0) {
             if(callback) {
-                ul.scrollLeft = liList[currentItem].offsetLeft - 50;
+                ul.scrollLeft = liList[currentItem].offsetLeft;
             }
             return;
         }
-        const difference = destination - scrollLayer.scrollLeft - 50;
+        const difference = destination - scrollLayer.scrollLeft;
         const perTick = (difference / duration) * 10;
     
         let timeout = setTimeout(function() {
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if (scrollLayer.scrollLeft === destination) {
                 clearTimeout(timeout);
                 if(callback) {
-                    ul.scrollLeft = liList[currentItem].offsetLeft - 50;
+                    ul.scrollLeft = liList[currentItem].offsetLeft;
                 }
                 return;
             }
