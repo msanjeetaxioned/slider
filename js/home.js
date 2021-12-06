@@ -46,6 +46,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
+    // Handle Browzer Resizing
+    let timeout;
+    window.addEventListener("resize", function(event) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            ul.scrollLeft = liList[currentItem].offsetLeft;
+            console.log("Resized");
+        }, 300);
+    });
+
     document.addEventListener("keydown", function(event) {
         if(event.key === "ArrowLeft") {
             changeDisplayedItem(true, -1);
