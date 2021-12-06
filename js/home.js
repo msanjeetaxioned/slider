@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     let ul = mainContainer.querySelector(".carousel > ul");
     let liList = mainContainer.querySelectorAll(".carousel li");
+    let imgList = mainContainer.querySelectorAll(".carousel li img");
     let carouselDotsArray = mainContainer.querySelectorAll(".carousel-buttons span");
 
     let cloneOfFirst = liList[0].cloneNode(true);
@@ -16,7 +17,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
     ul.prepend(cloneOfLast);
 
     liList = mainContainer.querySelectorAll(".carousel li");
-    ul.scrollLeft = liList[currentItem].offsetLeft - 50; // Scroll to Actual First Element(ie. 2nd Element in Array after cloning)
+    // Scroll to Actual First Element(ie. 2nd Element in Array after cloning)
+    ul.scrollLeft = liList[currentItem].offsetLeft - 50;
+
+    // Remove default drag of img behaviour
+    for(let img of imgList) {
+        img.addEventListener("dragstart", function(event) {
+            event.preventDefault();
+        });
+    }
+
+    let startX, endX, diffX, minDiff = 100;
+    ul.addEventListener("mousedown", function(event) {
+        startX = parseInt(event.clientX);
+    });
+
+    ul.addEventListener("mouseup", function(event) {
+        endX = parseInt(event.clientX);
+        diffX = Math.abs(endX-startX);
+        if(diffX >= minDiff) {
+            if(endX > startX) {
+                changeDisplayedItem(true, -1);
+            }
+            else {
+                changeDisplayedItem(true, 1);
+            }
+        }
+    });
 
     document.addEventListener("keydown", function(event) {
         if(event.key === "ArrowLeft") {
