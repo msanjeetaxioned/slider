@@ -85,7 +85,12 @@ figure > img {
     position: relative;
     top: 50%;
     transform: translate(0, -50%);
-    object-fit: contain; 
+    object-fit: contain;
+    user-select: none; /* Disable default behaviour of selecting image */
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
 }
 
 .carousel-buttons {
