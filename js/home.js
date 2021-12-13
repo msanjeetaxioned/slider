@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else if(event.key === "ArrowRight") {
             changeDisplayedItem(true, 1);
         }
-    })
+    });
 
     previousButton.addEventListener("click", function() {
         changeDisplayedItem(true, -1);
